@@ -33,7 +33,7 @@ const imageLoader: ImageLoader = ({ src, width, quality }) => {
   return `${src}`;
 };
 
-const Dashboard: NextPage<PageProps> = props => {
+const About: NextPage<PageProps> = props => {
   console.log(props);
 
   // const data = await getData();
@@ -59,17 +59,17 @@ const Dashboard: NextPage<PageProps> = props => {
             style={{ objectFit: "cover" }}
             alt="elephant image"
           /> */}
-          <Image
+          {/* <Image
             loader={imageLoader}
             src="https://images.pexels.com/photos/214574/pexels-photo-214574.jpeg?auto=compress&cs=tinysrgb&w=1600"
             alt="Picture of the author"
             objectFit="cover"
             layout="fill"
-          />
+          /> */}
         </div>
       </div>
     </>
   );
 };
 
-export default Dashboard;
+export default About;
