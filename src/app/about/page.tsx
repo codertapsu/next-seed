@@ -2,7 +2,7 @@
 
 import type { NextPage, InferGetServerSidePropsType, GetServerSideProps } from 'next';
 import Image, { ImageLoader } from 'next/image';
-import { cache } from 'react';
+import { Reducer, cache, useReducer } from 'react';
 
 interface Statistics {}
 
@@ -33,8 +33,41 @@ const imageLoader: ImageLoader = ({ src, width, quality }) => {
   return `${src}`;
 };
 
+interface State {
+  name: string;
+  age: number;
+}
+interface Action {
+  type: string;
+  nextName: string;
+}
+
+const reducer: Reducer<State, Action> = (state, action) => {
+  switch (action.type) {
+    case 'incremented_age': {
+      return {
+        name: state.name,
+        age: state.age + 1,
+      };
+    }
+    case 'changed_name': {
+      return {
+        name: action.nextName,
+        age: state.age,
+      };
+    }
+  }
+  throw Error('Unknown action: ' + action.type);
+};
+
+const initialState: State = { name: 'Taylor', age: 42 };
+
 const About: NextPage<PageProps> = props => {
   console.log(props);
+  /**
+   * @see https://react.dev/reference/react/useReducer#examples-initializer
+   */
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   // const data = await getData();
 
@@ -52,7 +85,7 @@ const About: NextPage<PageProps> = props => {
             unoptimized={true}
           />
         </div>
-        <div style={{ position: "relative", width: "50%", paddingTop: "100%" }}>
+        <div style={{ position: 'relative', width: '50%', paddingTop: '100%' }}>
           {/* <Image
             src={src}
             fill
@@ -72,4 +105,5 @@ const About: NextPage<PageProps> = props => {
   );
 };
 
+// export const runtime = 'edge'; // 'nodejs' (default) | 'edge'
 export default About;

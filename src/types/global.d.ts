@@ -3,4 +3,4 @@ type DefaultPageProps = {
   searchParams?: Record<string | string[], string | undefined>;
 };
 
-type PageProps<MainProps = NonNullable<unknown>> = MainProps & DefaultPageProps;
+type PageProps<P = NonNullable<unknown>> = P & DefaultPageProps;

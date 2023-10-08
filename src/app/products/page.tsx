@@ -1,5 +1,8 @@
+'use client';
+
 import type { NextPage, InferGetServerSidePropsType, GetServerSideProps } from 'next';
-import { cache } from 'react';
+import PerfectScrollbar from 'perfect-scrollbar';
+import { cache, useEffect, useRef } from 'react';
 
 interface Statistics {}
 
@@ -18,7 +21,7 @@ async function getData() {
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
 
-  await new Promise((resolve) => setTimeout(resolve, 5000));
+  await new Promise(resolve => setTimeout(resolve, 5000));
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
     throw new Error('Failed to fetch data');
@@ -27,13 +30,33 @@ async function getData() {
   return res.json();
 }
 
-const Dashboard: NextPage<PageProps> = async props => {
-  const data = await getData();
+const Dashboard: NextPage<PageProps> = props => {
+  // const data = await getData();
+  const scrollContainer = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    const ps = new PerfectScrollbar(scrollContainer.current!, {
+      wheelSpeed: 2,
+      wheelPropagation: true,
+      minScrollbarLength: 20,
+    });
+
+    return () => {
+      ps.destroy();
+    };
+  }, []);
 
   return (
     <>
       <div>
-        <p>Hello Dashboard</p>
+        <p>Hello Product page</p>
+      </div>
+      <div>
+        <ul ref={scrollContainer} style={{ height: 200 }}>
+          {Array.from({ length: 100 }).map((_, index) => (
+            <li key={index}>The command takes options applicable</li>
+          ))}
+        </ul>
       </div>
     </>
   );

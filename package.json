@@ -22,10 +22,14 @@
     "email": "hoangduykhanh21@gmail.com",
     "url": "https://github.com/codertapsu"
   },
-  "keywords": ["nextjs", "nextjs practice"],
+  "keywords": [
+    "nextjs",
+    "nextjs practice"
+  ],
   "dependencies": {
     "deepmerge": "^4.3.1",
     "next": "latest",
+    "perfect-scrollbar": "^1.5.5",
     "react": "latest",
     "react-dom": "latest",
     "sass": "^1.68.0"
